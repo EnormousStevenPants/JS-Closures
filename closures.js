@@ -6,7 +6,7 @@ var outer = function(){
   var name = 'Tyler';
   return function(){
     return 'The original name was ' + name;
-  }
+  };
 };
 
 /****** INSTRUCTIONS PROBLEM 1 ******/
@@ -16,9 +16,12 @@ another variable called 'inner'. */
 
 // Code Here
 
+var inner = outer();
+
 //Once you do that, invoke inner.
 
 //Code Here
+inner();
 
 
 
@@ -48,6 +51,9 @@ Create a makeCall function that when invoked logs 'Calling Jake at 435-215-9248'
 in your console. */
 
   //Code Here
+  function makeCall(number, callFriend){
+    console.log(callFriend(number));
+  }
 
 
 
@@ -67,13 +73,20 @@ in your console. */
 properly. */
 
 //Code Here
+function makeCounter(){
+  var i = 0;
+  return function countBigger(){
+    i++;
+    return i;
+  };
+}
 
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+  var count = makeCounter();
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -124,15 +137,21 @@ counter = counterFactory(10);
 /* Inside the motivation function create another function called message that
 will return 'You're doing awesome, keep it up firstname lastname.' */
 
+//For whatever reason the following code returns both the expected/desired value and the global variable. Have to fix that.
+
 function motivation(firstname, lastname){
 
   var welcomeText = 'You\'re doing awesome, keep it up ';
+
+  function message(){
+    return welcomeText + firstname + " " + lastname;
+  }
 
   // code message function here.
 
 
   //Uncommment this to return the value of your invoked message function
-  //return message();
+  console.log(message());
 
 }
 
