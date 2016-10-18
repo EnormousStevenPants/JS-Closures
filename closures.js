@@ -253,8 +253,24 @@ timeOutCounter();
 	#PROBLEM-08
 \******************************************************************************/
 
+//*********Below I have two solutions for this problem. The first is the easy, but not cool way. The second involves a closure, where we start a for loop and push a new function onto the array for each iteration. This function itself returns a function, which itself returns the value we wish it to return. We could even write a function to make the for loop as big as we wish, so that we can make the array as big as we wish. It would look something like function(num) {for (var i = 0; i <= num; i++)}, then the code we see below. 
+
+// var funcArray = [
+//   function(){return 0;}, function(){return 1;}, function(){return 2;}, function(){return 3;}, function(){return 4;}, function(){return 5;},
+// ];
 var funcArray = [];
 
+function newFunc(i) {
+  return function() {
+    return i;
+  };
+}
+
+for (var i = 0; i < 6; i++){
+  funcArray.push(newFunc(i));
+}
+
+console.log(funcArray);
 /*
   Make the following code work
 
@@ -267,3 +283,10 @@ var funcArray = [];
 
   *Hint: Don't let this fool you. Break down what's really happening here.
 */
+
+console.log(funcArray[0]()); //0
+console.log(funcArray[1]()); //1
+console.log(funcArray[2]()); //2
+console.log(funcArray[3]()); //3
+console.log(funcArray[4]()); //4
+console.log(funcArray[5]()); //5
