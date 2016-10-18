@@ -110,15 +110,27 @@ the module pattern to achieve this. */
 
 function counterFactory(value) {
 
-  // Code here.
-
-
   return {
-  }
+    inc: function(){
+      return ++value;
+    },
+    dec: function(){
+      return --value;
+    }
+  };
+  // (function inc(value){
+  //   return value++;
+  // }());
+  //
+  // (function dec(value){
+  //   return value--;
+  // }());
+
 }
 
 
 counter = counterFactory(10);
+console.log(counter);
 
 
 
@@ -143,19 +155,18 @@ function motivation(firstname, lastname){
 
   var welcomeText = 'You\'re doing awesome, keep it up ';
 
-  function message(){
-    return welcomeText + firstname + " " + lastname;
-  }
 
   // code message function here.
-
+  var message = function() {
+    return welcomeText + firstname + " " + lastname + ".";
+  };
 
   //Uncommment this to return the value of your invoked message function
-  console.log(message());
+  return message();
 
 }
 
-motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
+console.log(motivation('Billy', 'Bob')); // 'Your doing awesome keep it up Billy Bob
 
 
 
@@ -190,13 +201,15 @@ var module = (function() {
 	// outside our lexical scope
 
   return {
-    // Code here.
+    publicMethod: function() {
+      return privateMethod();
+    }
   };
 
 })();
 
 // Uncomment this after you create your public method
-//   module.publicMethod();
+  module.publicMethod();
 
 
 
@@ -219,15 +232,16 @@ then 3, etc). Run this code in your console to see what the output is. */
 // To make this code work you will need to create a new scope for every iteration.
 function timeOutCounter() {
   for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-      console.log(i);
-    }, i * 1000)
-  }
-
-  function newScope(i) {
-    console.log(i)
+    setTimeout(newScope(i), i * 1000);
   }
 }
+
+function newScope(i) {
+  return function() {
+    console.log(i);
+  };
+}
+
 timeOutCounter();
 
 
